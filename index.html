@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&family=Special+Elite&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <style>
-        /* ===== ENHANCED CHRONOLOGICAL TIMELINE ===== */
+        /* ===== CHRONOLOGICAL TIMELINE ===== */
         .timeline-section {
             margin-top: 4rem;
             max-width: 1400px;
@@ -18,14 +18,12 @@
             text-align: center;
             padding: 0 1.5rem;
         }
-
         .timeline-heading {
             font-family: 'Playfair Display', serif;
             font-size: 2.6rem;
             color: var(--text);
             margin-bottom: 0.5rem;
         }
-
         .timeline-subheading {
             color: var(--text-muted);
             font-size: 1.05rem;
@@ -33,7 +31,6 @@
             font-style: italic;
             letter-spacing: 0.05em;
         }
-
         .history-timeline {
             position: relative;
             display: flex;
@@ -43,9 +40,7 @@
             padding: 4rem 2.5rem;
             background: var(--bg-alt);
             border-radius: 16px;
-          }
-
-        /* The horizontal line */
+        }
         .history-timeline::before {
             content: '';
             position: absolute;
@@ -56,7 +51,6 @@
             background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold) 80%, transparent);
             z-index: 1;
         }
-
         .timeline-node {
             position: relative;
             display: flex;
@@ -66,8 +60,6 @@
             min-width: 140px;
             z-index: 2;
         }
-
-        /* The "+" marker on the line */
         .node-plus {
             width: 42px;
             height: 42px;
@@ -85,7 +77,6 @@
             position: relative;
             z-index: 3;
         }
-
         .node-year {
             font-family: 'Special Elite', cursive;
             font-size: 1.9rem;
@@ -95,7 +86,6 @@
             margin-bottom: 0.3rem;
             text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
         .node-title {
             font-family: 'Playfair Display', serif;
             font-size: 1.35rem;
@@ -105,8 +95,6 @@
             letter-spacing: 0.05em;
             text-transform: uppercase;
         }
-
-        /* Polaroid-style photo - BIGGER */
         .node-photo {
             background: white;
             padding: 12px 12px 40px;
@@ -120,22 +108,14 @@
             cursor: pointer;
             border: 1px solid rgba(0,0,0,0.05);
         }
-
-        .timeline-node:nth-child(even) .node-photo {
-            transform: rotate(2deg);
-        }
-
+        .timeline-node:nth-child(even) .node-photo { transform: rotate(2deg); }
         .node-photo:hover {
             transform: rotate(0deg) scale(1.08);
             box-shadow: 0 20px 50px rgba(0,0,0,0.35);
             z-index: 20;
             border-color: var(--gold);
         }
-
-        .node-photo:active {
-            transform: scale(0.98);
-        }
-
+        .node-photo:active { transform: scale(0.98); }
         .node-photo img {
             width: 100%;
             height: auto;
@@ -144,7 +124,6 @@
             display: block;
             border-radius: 2px;
         }
-
         .polaroid-caption {
             font-family: 'Special Elite', cursive;
             font-size: 1rem;
@@ -154,131 +133,84 @@
             letter-spacing: 0.02em;
             line-height: 1.3;
         }
-
-      /* ===== MOBILE RESPONSIVE (Vertical Timeline) ===== */
-@media (max-width: 768px) {
-    .timeline-heading {
-        font-size: 1.8rem;
-    }
-    .timeline-subheading {
-        font-size: 0.9rem;
-        margin-bottom: 2rem;
-    }
-    .history-timeline {
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-        padding: 2rem 1rem;
-    }
-    .history-timeline::before {
-        top: 3%;
-        bottom: 3%;
-        left: 50%;
-        width: 2px;
-        height: auto;
-        transform: translateX(-50%);
-        background: linear-gradient(180deg, transparent, var(--gold) 10%, var(--gold) 90%, transparent);
-    }
-    .timeline-node {
-        width: 100%;
-        max-width: 100%;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 1rem;
-        text-align: left;
-        padding-left: 2.5rem; /* reduced from 4rem */
-    }
-    .timeline-node::before {
-        content: '+';
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        width: 30px;
-        height: 30px;
-        background: var(--gold);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-size: 1.2rem;
-        font-weight: 700;
-        border: 2px solid white;
-        box-shadow: 0 4px 10px rgba(201,168,76,0.5);
-        z-index: 3;
-    }
-    .node-plus {
-        display: none;
-    }
-    .node-year {
-        font-size: 1.2rem;
-        margin-bottom: 0.1rem;
-    }
-    .node-title {
-        font-size: 0.9rem;
-        margin-bottom: 0.2rem;
-    }
-    .node-photo {
-        max-width: 130px;
-        margin-top: 0;
-        flex-shrink: 0;
-        padding: 6px 6px 20px;
-    }
-    .node-photo img {
-        aspect-ratio: 4/5;
-    }
-    .polaroid-caption {
-        font-size: 0.7rem;
-        margin-top: 0.5rem;
-    }
-    /* Force photo first, text after */
-    .timeline-node {
-        flex-direction: row;
-        justify-content: flex-start;
-        padding-left: 2.5rem;
-        padding-right: 0;
-    }
-    .node-photo {
-        order: 1;
-        margin-right: 0.8rem;
-    }
-    .node-info-wrapper {
-        order: 2;
-    }
-}
-
-@media (max-width: 480px) {
-    .timeline-heading {
-        font-size: 1.5rem;
-    }
-    .timeline-subheading {
-        font-size: 0.8rem;
-    }
-    .history-timeline {
-        gap: 1.5rem;
-        padding: 1.5rem 0.8rem;
-    }
-    .timeline-node {
-        padding-left: 2rem;
-        gap: 0.8rem;
-    }
-    .node-photo {
-        max-width: 110px;
-        padding: 5px 5px 16px;
-    }
-    .polaroid-caption {
-        font-size: 0.6rem;
-    }
-    .node-year {
-        font-size: 1rem;
-    }
-    .node-title {
-        font-size: 0.8rem;
-    }
-}
-        /* ===== Rest of CSS (unchanged) ===== */
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .timeline-heading { font-size: 1.8rem; }
+            .timeline-subheading { font-size: 0.9rem; margin-bottom: 2rem; }
+            .history-timeline {
+                flex-direction: column;
+                align-items: center;
+                gap: 2rem;
+                padding: 2rem 1rem;
+            }
+            .history-timeline::before {
+                top: 3%;
+                bottom: 3%;
+                left: 50%;
+                width: 2px;
+                height: auto;
+                transform: translateX(-50%);
+                background: linear-gradient(180deg, transparent, var(--gold) 10%, var(--gold) 90%, transparent);
+            }
+            .timeline-node {
+                width: 100%;
+                max-width: 100%;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                gap: 1rem;
+                text-align: left;
+                padding-left: 2.5rem;
+            }
+            .timeline-node::before {
+                content: '+';
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                width: 30px;
+                height: 30px;
+                background: var(--gold);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 1.2rem;
+                font-weight: 700;
+                border: 2px solid white;
+                box-shadow: 0 4px 10px rgba(201,168,76,0.5);
+                z-index: 3;
+            }
+            .node-plus { display: none; }
+            .node-year { font-size: 1.2rem; margin-bottom: 0.1rem; }
+            .node-title { font-size: 0.9rem; margin-bottom: 0.2rem; }
+            .node-photo {
+                max-width: 130px;
+                margin-top: 0;
+                flex-shrink: 0;
+                padding: 6px 6px 20px;
+            }
+            .node-photo img { aspect-ratio: 4/5; }
+            .polaroid-caption { font-size: 0.7rem; margin-top: 0.5rem; }
+            .timeline-node { flex-direction: row; justify-content: flex-start; padding-left: 2.5rem; padding-right: 0; }
+            .node-photo { order: 1; margin-right: 0.8rem; }
+            .node-info-wrapper { order: 2; }
+        }
+        @media (max-width: 480px) {
+            .timeline-heading { font-size: 1.5rem; }
+            .timeline-subheading { font-size: 0.8rem; }
+            .history-timeline { gap: 1.5rem; padding: 1.5rem 0.8rem; }
+            .timeline-node { padding-left: 2rem; gap: 0.8rem; }
+            .node-photo {
+                max-width: 110px;
+                padding: 5px 5px 16px;
+            }
+            .polaroid-caption { font-size: 0.6rem; }
+            .node-year { font-size: 1rem; }
+            .node-title { font-size: 0.8rem; }
+        }
+        /* ===== REST OF CSS ===== */
         :root {
             --bg: #ffffff;
             --bg-alt: #f8f7f4;
@@ -483,14 +415,16 @@
         /* Gift & Map */
         .qr-section { text-align: center; }
         .qr-code { width: 230px; margin: 1rem auto; display: block; border: 1px solid var(--border-gold); border-radius: 4px; }
-        .map-container { border: 1px solid var(--border-gold); height: 350px; margin-top: 2rem; border-radius: 8px; overflow: hidden; }
+        .map-container { border: 1px solid var(--border-gold); height: 400px; margin-top: 2rem; border-radius: 8px; overflow: hidden; max-width: 800px; margin-left: auto; margin-right: auto; }
         .map-container iframe { width: 100%; height: 100%; border: none; }
 
-        /* ===== GOLDEN MEMORIES SECTION ===== */
+        /* ===== GOLDEN MEMORIES SECTION (scrollable) ===== */
         .golden-memories-section {
             padding: 4rem 2rem;
             background: var(--bg-alt);
             max-width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
         }
         .collage-grid {
             display: grid;
@@ -506,6 +440,20 @@
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
+            max-height: 600px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold) var(--bg-alt);
+        }
+        .collage-grid::-webkit-scrollbar {
+            width: 8px;
+        }
+        .collage-grid::-webkit-scrollbar-track {
+            background: var(--bg-alt);
+        }
+        .collage-grid::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 4px;
         }
         .collage-item {
             position: relative;
@@ -574,6 +522,10 @@
                 gap: 8px;
                 padding: 8px;
             }
+            .golden-memories-section {
+                padding: 3rem 1rem;
+                max-height: 75vh;
+            }
         }
         @media (max-width: 640px) {
             .collage-grid {
@@ -586,76 +538,91 @@
         }
         @media (max-width: 480px) {
             .details-grid { grid-template-columns: 1fr; }
-        }/* ===== LOADING SCREEN ===== */
-#loadingScreen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: var(--bg);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 0.6s ease;
-}
-#loadingScreen.hidden {
-    opacity: 0;
-    pointer-events: none;
-}
-.loading-content {
-    text-align: center;
-}
-.loading-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.8rem;
-    font-weight: 700;
-    color: var(--text);
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
-}
-.loading-spinner {
-    width: 60px;
-    height: 60px;
-    border: 4px solid var(--border);
-    border-top: 4px solid var(--gold);
-    border-radius: 50%;
-    margin: 0 auto 1rem;
-    animation: spin 1s linear infinite;
-}
-@keyframes spin {
-    to { transform: rotate(360deg); }
-}
-.loading-text {
-    font-family: 'Special Elite', cursive;
-    font-size: 1rem;
-    color: var(--text-muted);
-    letter-spacing: 0.05em;
-}
+            .golden-memories-section {
+                padding: 2rem 0.5rem;
+                max-height: 70vh;
+            }
+        }
+        /* ===== LOADING SCREEN ===== */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease;
+        }
+        #loadingScreen.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loading-content {
+            text-align: center;
+        }
+        .loading-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid var(--border);
+            border-top: 4px solid var(--gold);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loading-text {
+            font-family: 'Special Elite', cursive;
+            font-size: 1rem;
+            color: var(--text-muted);
+            letter-spacing: 0.05em;
+        }
+        /* Fade-in for main content after loading */
+        body {
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        body.page-loaded {
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="night-mode">
-<!-- Loading Screen -->
-<div id="loadingScreen">
-    <div class="loading-content">
-        <div class="loading-logo">Maggie's<br><span style="color: var(--gold);">Golden Era</span></div>
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Loading the golden moments...</div>
+    <!-- Loading Screen -->
+    <div id="loadingScreen">
+        <div class="loading-content">
+            <div class="loading-logo">Maggie's<br><span style="color: var(--gold);">Golden Era</span></div>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading the golden moments...</div>
+        </div>
     </div>
-</div>
+
     <!-- NAV -->
     <nav class="nav" id="navbar">
         <a href="index.html" class="nav-logo">
-       
-        </a>
+           </a>
         <div class="nav-right">
             <ul class="nav-links" id="navLinks">
                 <li><a href="#message">Message</a></li>
                 <li><a href="#program">Program</a></li>
                 <li><a href="#details">Details</a></li>
                 <li><a href="#rsvp">RSVP</a></li>
+                <li><a href="#golden-memories">Golden Memories</a></li>
                 <li><a href="#gift">Gift</a></li>
+                <li><a href="#venue">Venue</a></li>
             </ul>
             <button class="theme-toggle" id="themeToggle"><span class="material-icons">light_mode</span></button>
             <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
@@ -669,17 +636,19 @@
             <li><a href="#program">Program</a></li>
             <li><a href="#details">Details</a></li>
             <li><a href="#rsvp">RSVP</a></li>
+            <li><a href="#golden-memories">Golden Memories</a></li>
             <li><a href="#gift">Gift</a></li>
+            <li><a href="#venue">Venue</a></li>
         </ul>
     </div>
 
     <!-- HERO -->
     <section class="hero" id="hero">
         <div class="hero-media">
-            <video class="landscape-video" muted loop playsinline autoplay>
+            <video class="landscape-video" muted loop playsinline autoplay preload="auto" poster="img/hero-poster.jpg">
                 <source src="audio/bg.mp4" type="video/mp4" />
             </video>
-            <video class="portrait-video" muted loop playsinline autoplay>
+            <video class="portrait-video" muted loop playsinline autoplay preload="auto" poster="img/hero-poster-mobile.jpg">
                 <source src="audio/bgmb.mp4" type="video/mp4" />
             </video>
         </div>
@@ -765,14 +734,13 @@
         </div>
     </section>
 
-    <!-- VIDEO REPLACING BOOK -->
+    <!-- TRIBUTE (replacing book) -->
     <section class="section" id="tribute-video">
         <div class="section-inner">
             <p class="section-label">A Special Tribute</p>
             <h2 class="section-title">A Golden <span class="gold-text">Tribute</span></h2>
             <div class="section-divider"></div>
-             <img src="img/inv22.gif" style="width: 100%; max-width: 700px; height: auto; display: block; margin: 2rem auto; border-radius: 12px; border: 2px solid var(--gold);" />
-     
+            <img src="img/inv22.gif" style="width: 100%; max-width: 700px; height: auto; display: block; margin: 2rem auto; border-radius: 12px; border: 2px solid var(--gold);" />
         </div>
     </section>
 
@@ -821,12 +789,12 @@
                 <h2 class="timeline-heading">Celebrant's <span style="color:var(--gold);">Golden Moments</span></h2>
                 <p class="timeline-subheading">A journey through the years</p>
                 
-                <div class="history-timeline" >
+                <div class="history-timeline">
                     <!-- Baby -->
                     <div class="timeline-node" data-photo="img/i1.jpg" data-caption="Baby · 19XX">
                         <div class="node-year">19XX</div><br>
                         <div class="node-plus">+</div>
-            <div class="node-title"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="node-title"> &nbsp;</div>
                         <div class="node-photo">
                             <img src="img/i1.jpg" alt="Baby Maggie" />
                             <div class="polaroid-caption" style="color: black;">Baby Maggie</div>
@@ -837,7 +805,7 @@
                     <div class="timeline-node" data-photo="img/i2.jpg" data-caption="Teenager · 20XX">
                         <div class="node-year">20XX</div>
                         <div class="node-plus">+</div>
-            <div class="node-title"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="node-title"> &nbsp;</div>
                         <div class="node-photo">
                             <img src="img/i2.jpg" alt="Teenage Maggie" />
                             <div class="polaroid-caption" style="color: black;">Youthful Spark</div>
@@ -848,7 +816,7 @@
                     <div class="timeline-node" data-photo="img/i3.jpg" data-caption="Young Adult · 20XX">
                         <div class="node-year">20XX</div>
                         <div class="node-plus">+</div>
-            <div class="node-title"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="node-title"> &nbsp;</div>
                         <div class="node-photo">
                             <img src="img/i3.jpg" alt="Young Adult Maggie" />
                             <div class="polaroid-caption" style="color: black;">Radiant Beginnings</div>
@@ -859,7 +827,7 @@
                     <div class="timeline-node" data-photo="img/i4.jpg" data-caption="Adult · 20XX">
                         <div class="node-year">20XX</div>
                         <div class="node-plus">+</div>
-            <div class="node-title"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="node-title"> &nbsp;</div>
                         <div class="node-photo">
                             <img src="img/i4.jpg" alt="Adult Maggie" />
                             <div class="polaroid-caption" style="color: black;">Graceful Wisdom</div>
@@ -870,7 +838,7 @@
                     <div class="timeline-node" data-photo="img/i5.jpg" data-caption="Golden Era · 2026">
                         <div class="node-year">2026</div>
                         <div class="node-plus">+</div>
-            <div class="node-title"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                        <div class="node-title"> &nbsp;</div>
                         <div class="node-photo">
                             <img src="img/i5.jpg" alt="Present Maggie" />
                             <div class="polaroid-caption" style="color: black;">Golden &amp; Radiant</div>
@@ -881,7 +849,7 @@
         </div>
     </section>
 
-    <!-- GIFT -->
+    <!-- GIFT + MAP (Venue) -->
     <section class="section section-alt" id="gift">
         <div class="section-inner qr-section">
             <p class="section-label">Gift Registry</p>
@@ -889,6 +857,16 @@
             <div class="section-divider"></div>
             <img src="qrgcash.png" alt="QR Code" class="qr-code" width="500" />
             <p style="color:var(--text-muted);">Scan to send via Gcash.</p>
+
+            <!-- Venue Map -->
+            <div id="venue" style="margin-top: 4rem; text-align: center;">
+                <p class="section-label">Find Your Way</p>
+                <h2 class="section-title">The <span class="gold-text">Venue</span></h2>
+                <div class="section-divider"></div>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3867.716207107201!2d120.92999807586992!3d14.211388186485614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd7f2fb38b9907%3A0x5455c55be828b2d7!2sPatio%20Buendia%20Farm%20Resort%20and%20Events%20Place!5e0!3m2!1sen!2sph!4v1788979341980!5m2!1sen!2sph" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -949,21 +927,37 @@
                 overlay.classList.toggle('active');
                 document.body.style.overflow = hamburger.classList.contains('active') ? 'hidden' : '';
             });
-            document.querySelectorAll('[data-mobile-link]').forEach(link => link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                overlay.classList.remove('active');
-                document.body.style.overflow = '';
-            }));
 
-            // Smooth scroll
-            document.querySelectorAll('a[href^="#"]').forEach(a => {
-                a.addEventListener('click', function(e) {
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) { e.preventDefault(); window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' }); }
+            // Mobile menu links – close overlay and scroll to section
+            document.querySelectorAll('.mobile-links a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    hamburger.classList.remove('active');
+                    overlay.classList.remove('active');
+                    document.body.style.overflow = '';
+
+                    const targetId = link.getAttribute('href');
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        setTimeout(() => {
+                            window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                        }, 50);
+                    }
                 });
             });
 
-            // RSVP Form
+            // Smooth scroll for desktop nav
+            document.querySelectorAll('.nav-links a[href^="#"]').forEach(a => {
+                a.addEventListener('click', function(e) {
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        e.preventDefault();
+                        window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // RSVP Form with image compression
             const rsvpForm = document.getElementById('rsvpForm');
             rsvpForm.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -978,11 +972,41 @@
                 if (photoInput.files[0]) {
                     const reader = new FileReader();
                     reader.onload = function(ev) {
-                        submission.photo = ev.target.result;
-                        saveSubmission(submission);
-                        alert('RSVP submitted! Thank you! Scroll down to Golden Memories to see your uploaded picture.');
-                        rsvpForm.reset();
-                        renderCollage();
+                        const img = new Image();
+                        img.onload = function() {
+                            // Compress image to 300x300 max
+                            const canvas = document.createElement('canvas');
+                            const maxWidth = 300;
+                            const maxHeight = 300;
+                            let width = img.width;
+                            let height = img.height;
+                            
+                            if (width > height) {
+                                if (width > maxWidth) {
+                                    height *= maxWidth / width;
+                                    width = maxWidth;
+                                }
+                            } else {
+                                if (height > maxHeight) {
+                                    width *= maxHeight / height;
+                                    height = maxHeight;
+                                }
+                            }
+                            
+                            canvas.width = width;
+                            canvas.height = height;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, width, height);
+                            
+                            // Convert to JPEG with 60% quality (much smaller)
+                            const compressedData = canvas.toDataURL('image/jpeg', 0.6);
+                            submission.photo = compressedData;
+                            saveSubmission(submission);
+                            alert('RSVP submitted! Thank you! Scroll down to Golden Memories to see your uploaded picture.');
+                            rsvpForm.reset();
+                            renderCollage();
+                        };
+                        img.src = ev.target.result;
                     };
                     reader.readAsDataURL(photoInput.files[0]);
                 } else {
@@ -1047,7 +1071,7 @@
                 }
             });
 
-            // ===== CLICKABLE TIMELINE PHOTOS =====
+            // Clickable timeline photos
             const timelineNodes = document.querySelectorAll('.timeline-node');
             timelineNodes.forEach(function(node) {
                 node.querySelector('.node-photo').addEventListener('click', function() {
@@ -1069,23 +1093,56 @@
             renderCollage();
         })();
 
-// ===== LOADING SCREEN + FADE-IN =====
-const loadingScreen = document.getElementById('loadingScreen');
-document.body.style.overflow = 'hidden';
+        // ===== FAST VIDEO LOADING =====
+        const loadingScreen = document.getElementById('loadingScreen');
+        document.body.style.overflow = 'hidden';
 
-function hideLoadingAndShowPage() {
-    loadingScreen.classList.add('hidden');
-    document.body.classList.add('page-loaded');
-    document.body.style.overflow = '';
-}
+        function hideLoadingAndShowPage() {
+            loadingScreen.classList.add('hidden');
+            document.body.classList.add('page-loaded');
+            document.body.style.overflow = '';
+        }
 
-// Hide when page fully loaded
-window.addEventListener('load', () => {
-    setTimeout(hideLoadingAndShowPage, 600);
-});
+        function getActiveVideo() {
+            const landscape = document.querySelector('.landscape-video');
+            const portrait = document.querySelector('.portrait-video');
+            if (landscape && landscape.offsetParent !== null) return landscape;
+            if (portrait && portrait.offsetParent !== null) return portrait;
+            return landscape;
+        }
 
-// Fallback: hide after 3 seconds if load doesn't fire
-setTimeout(hideLoadingAndShowPage, 3000);
+        function waitForVideoReady() {
+            const activeVideo = getActiveVideo();
+            if (!activeVideo) {
+                hideLoadingAndShowPage();
+                return;
+            }
+            if (activeVideo.readyState >= 2) {
+                hideLoadingAndShowPage();
+                return;
+            }
+            const onVideoReady = () => {
+                activeVideo.removeEventListener('loadeddata', onVideoReady);
+                activeVideo.removeEventListener('canplay', onVideoReady);
+                activeVideo.removeEventListener('canplaythrough', onVideoReady);
+                activeVideo.removeEventListener('error', onError);
+                hideLoadingAndShowPage();
+            };
+            const onError = () => {
+                activeVideo.removeEventListener('loadeddata', onVideoReady);
+                activeVideo.removeEventListener('canplay', onVideoReady);
+                activeVideo.removeEventListener('canplaythrough', onVideoReady);
+                activeVideo.removeEventListener('error', onError);
+                hideLoadingAndShowPage();
+            };
+            activeVideo.addEventListener('loadeddata', onVideoReady);
+            activeVideo.addEventListener('canplay', onVideoReady);
+            activeVideo.addEventListener('canplaythrough', onVideoReady);
+            activeVideo.addEventListener('error', onError);
+            setTimeout(hideLoadingAndShowPage, 2000);
+        }
+
+        waitForVideoReady();
     </script>
 </body>
 </html>
