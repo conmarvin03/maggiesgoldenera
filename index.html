@@ -676,12 +676,14 @@
     <!-- HERO -->
     <section class="hero" id="hero">
         <div class="hero-media">
-            <video class="landscape-video" muted loop playsinline autoplay>
-                <source src="audio/bg.mp4" type="video/mp4" />
-            </video>
-            <video class="portrait-video" muted loop playsinline autoplay>
-                <source src="audio/bgmb.mp4" type="video/mp4" />
-            </video>
+  <video class="landscape-video" muted loop playsinline autoplay preload="auto" poster="img/hero-poster.jpg">
+    <source src="audio/bg.webm" type="video/webm" />
+    <source src="audio/bg.mp4" type="video/mp4" />
+</video>
+<video class="portrait-video" muted loop playsinline autoplay preload="auto" poster="img/hero-poster-mobile.jpg">
+    <source src="audio/bgmb.webm" type="video/webm" />
+    <source src="audio/bgmb.mp4" type="video/mp4" />
+</video> 
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -1070,46 +1072,21 @@
         })();
 
 // ===== LOADING SCREEN (wait for hero video) =====
-const loadingScreen = document.getElementById('loadingScreen');
-document.body.style.overflow = 'hidden';
-
-// Get the hero video elements
-const landscapeVideo = document.querySelector('.landscape-video');
-const portraitVideo = document.querySelector('.portrait-video');
-
-// Function to check which video is currently visible
-function getActiveVideo() {
-    // Check which video is actually displayed
-    if (landscapeVideo && landscapeVideo.offsetParent !== null) {
-        return landscapeVideo;
-    }
-    if (portraitVideo && portraitVideo.offsetParent !== null) {
-        return portraitVideo;
-    }
-    return landscapeVideo; // default to landscape
-}
-
-function hideLoadingAndShowPage() {
-    loadingScreen.classList.add('hidden');
-    document.body.classList.add('page-loaded');
-    document.body.style.overflow = '';
-}
-
 function waitForVideo() {
     const activeVideo = getActiveVideo();
     if (!activeVideo) {
-        hideLoadingAndShowPage(); // no video? just show
-        return;
-    }
-
-    // If video already ready (readyState >= 3 means can play through)
-    if (activeVideo.readyState >= 3) {
         hideLoadingAndShowPage();
         return;
     }
 
-    // Listen for 'canplay' or 'canplaythrough' events
+    // If video already has data (readyState >= 2 means can play current frame)
+    if (activeVideo.readyState >= 2) {
+        hideLoadingAndShowPage();
+        return;
+    }
+
     const onReady = () => {
+        activeVideo.removeEventListener('loadeddata', onReady);
         activeVideo.removeEventListener('canplay', onReady);
         activeVideo.removeEventListener('canplaythrough', onReady);
         activeVideo.removeEventListener('error', onError);
@@ -1117,30 +1094,22 @@ function waitForVideo() {
     };
 
     const onError = () => {
+        activeVideo.removeEventListener('loadeddata', onReady);
         activeVideo.removeEventListener('canplay', onReady);
         activeVideo.removeEventListener('canplaythrough', onReady);
         activeVideo.removeEventListener('error', onError);
         hideLoadingAndShowPage();
     };
 
+    // Listen to 'loadeddata' - fires when first frame is available
+    activeVideo.addEventListener('loadeddata', onReady);
     activeVideo.addEventListener('canplay', onReady);
     activeVideo.addEventListener('canplaythrough', onReady);
     activeVideo.addEventListener('error', onError);
 
-    // Fallback: hide after 5 seconds if video still not ready
-    setTimeout(hideLoadingAndShowPage, 5000);
+    // Fallback: hide after 3 seconds
+    setTimeout(hideLoadingAndShowPage, 3000);
 }
-
-// Start waiting for video
-waitForVideo();
-
-// Also handle orientation change (optional - if video switches)
-window.addEventListener('orientationchange', () => {
-    // If page already loaded, ignore
-    if (document.body.classList.contains('page-loaded')) return;
-    // Wait for the new video
-    waitForVideo();
-});
     </script>
 </body>
 </html>
