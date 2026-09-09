@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Golden Memories · Maggie's Golden Era</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500&family=Special+Elite&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <style>
+        :root {
+            --gold: #c9a84c;
+            --bg: #ffffff;
+            --bg-alt: #f8f7f4;
+            --text: #1a1a1a;
+            --text-muted: #777777;
+            --border: #e0dcd3;
+            --card-bg: #ffffff;
+            --gold-dark: #a6842c;
+        }
+        body.night-mode {
+            --bg: #0a0a0a;
+            --bg-alt: #111111;
+            --text: #f0f0f0;
+            --text-muted: #999999;
+            --border: #2a2a2a;
+            --card-bg: #1a1a1a;
+            --gold-dark: #d4b86a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+        .top-bar {
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+            background: var(--bg); border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem; display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        }
+        .top-bar a {
+            text-decoration: none; color: var(--gold); font-family: 'Special Elite', cursive;
+            font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;
+        }
+        .top-bar .title { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.5rem; color: var(--text); }
+        
+        /* Container - full width desktop */
+        .container { 
+            max-width: 100%; 
+            margin: 0 auto; 
+            padding: 5rem 2rem 2rem; 
+        }
+        .page-title { text-align: center; font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--text); margin-bottom: 0.5rem; }
+        .page-subtitle { text-align: center; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem; }
+        
+        /* Collage - full width */
+        .collage-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            grid-auto-rows: 180px;
+            grid-auto-flow: dense;
+            gap: 12px;
+            background: #c9a84c;
+            border: 3px solid #333;
+            padding: 14px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            border-radius: 4px;
+            width: 100%;
+        }
+        .collage-item {
+            position: relative;
+            border: 2px solid #333;
+            background: #f0f0f0;
+            overflow: hidden;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: box-shadow 0.2s;
+        }
+        .collage-item:hover {
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 10;
+            animation: shake 0.4s ease-in-out;
+        }
+        @keyframes shake {
+            0% { transform: translateX(0) scale(1); }
+            25% { transform: translateX(-5px) scale(1.02) rotate(-1deg); }
+            50% { transform: translateX(5px) scale(1.03) rotate(1deg); }
+            75% { transform: translateX(-3px) scale(1.02) rotate(0.5deg); }
+            100% { transform: translateX(0) scale(1.03); }
+        }
+        .collage-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .collage-item .nickname {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: rgba(0,0,0,0.6); color: white; text-align: center;
+            font-size: 11px; padding: 4px 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            font-family: 'Inter', sans-serif; font-weight: 500;
+        }
+        .collage-item.small { grid-row: span 1; grid-column: span 1; }
+        .collage-item.medium { grid-row: span 2; grid-column: span 1; }
+        .collage-item.large { grid-row: span 2; grid-column: span 2; }
+        .empty-message { text-align: center; padding: 3rem; color: var(--text-muted); font-style: italic; grid-column: 1/-1; }
+        
+        /* Modal */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85); z-index: 2000;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: opacity 0.3s;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-content {
+            background: rgb(112, 107, 33); border-radius: 8px; padding: 2rem;
+            max-width: 600px; width: 90%; text-align: center;
+            position: relative; box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+        .modal-close {
+            position: absolute; top: 10px; right: 15px; background: none; border: none;
+            font-size: 2rem; cursor: pointer; color: #333;
+        }
+        .modal-photo { max-width: 100%; max-height: 70vh; border-radius: 4px; }
+        .modal-nickname { font-family: 'Special Elite', cursive; color: var(--gold); margin-top: 1rem; font-size: 1.5rem; }
+
+        /* ===== SLIDESHOW SECTION - FULL WIDTH ===== */
+        .slideshow-section {
+            margin-top: 4rem;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+            padding: 0 1rem;
+        }
+        .slideshow-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--text);
+            margin-bottom: 0.3rem;
+        }
+        .slideshow-subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            font-style: italic;
+        }
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            max-width: 100%;
+            height: 1050px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            border: 3px solid var(--gold);
+            background: var(--bg-alt);
+        }
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-alt);
+        }
+        .slide.active { opacity: 1; }
+        .slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.7));
+            color: white;
+            padding: 2rem 1rem 1.2rem;
+            font-family: 'Special Elite', cursive;
+            font-size: 1.4rem;
+            letter-spacing: 0.03em;
+            text-align: center;
+        }
+        .slideshow-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.3);
+            border: none;
+            color: white;
+            font-size: 2.4rem;
+            cursor: pointer;
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: background 0.3s, transform 0.3s;
+            backdrop-filter: blur(4px);
+        }
+        .slideshow-btn:hover {
+            background: rgba(201,168,76,0.7);
+            transform: translateY(-50%) scale(1.1);
+        }
+        .slideshow-btn.prev { left: 25px; }
+        .slideshow-btn.next { right: 25px; }
+        .dots-container {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+        .dot.active {
+            background: var(--gold);
+            transform: scale(1.3);
+        }
+        .dot:hover { background: var(--gold-light); }
+
+        /* ===== MOBILE RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .container { padding: 4rem 1rem 2rem; }
+            .collage-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                grid-auto-rows: 120px;
+                gap: 8px;
+                padding: 8px;
+            }
+            .slideshow-container { height: 420px; }
+            .slideshow-btn {
+                width: 48px;
+                height: 48px;
+                font-size: 1.8rem;
+            }
+            .slide-caption {
+                font-size: 1rem;
+                padding: 1.5rem 1rem 1rem;
+            }
+        }
+        @media (max-width: 640px) {
+            .collage-grid {
+                grid-template-columns: repeat(2, 1fr);
+                grid-auto-rows: 110px;
+                gap: 6px;
+                padding: 6px;
+            }
+            .slideshow-container { height: 340px; }
+            .slideshow-btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1.5rem;
+            }
+            .slideshow-btn.prev { left: 10px; }
+            .slideshow-btn.next { right: 10px; }
+            .slide-caption {
+                font-size: 0.9rem;
+                padding: 1rem 0.8rem 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body class="night-mode">
+    <div class="top-bar">
+        <a href="index.html">← Back to Invitation</a>
+        <div style="width:120px;"></div>
+    </div>
+    <br><br><br>
+
+    <div class="container"  style="width: 1300px;">
+        <h1 class="page-title">Golden <span style="color:var(--gold);">Memories</span></h1>
+        <p class="page-subtitle">Photos from our guests · click to view</p>
+        <div class="collage-grid" id="collageGrid">
+            <p class="empty-message">No photos yet. Submit your RSVP on the invitation page to add your photo!</p>
+        </div>
+<br><br><br><hr>
+        <!-- ===== SLIDESHOW SECTION ===== -->
+        <div class="slideshow-section" style="width: 800px;">
+            <h2 class="slideshow-header">Celebrant's <span style="color:var(--gold);">Golden Moments</span></h2>
+            <p class="slideshow-subtitle">A tribute to Maggie through the years</p>
+            <div class="slideshow-container" id="slideshow">
+                <div class="slide active">
+                    <img src="img/i1.jpg" alt="Maggie Photo 1" />
+                    <div class="slide-caption">Shining bright like gold </div>
+                </div>
+                <div class="slide">
+                    <img src="img/i2.jpg" alt="Maggie Photo 2" />
+                    <div class="slide-caption">Graceful and radiant </div>
+                </div>
+                <div class="slide">
+                    <img src="img/i3.jpg" alt="Maggie Photo 3" />
+                    <div class="slide-caption">A heart full of love </div>
+                </div>
+                <div class="slide">
+                    <img src="img/i4.jpg" alt="Maggie Photo 4" />
+                    <div class="slide-caption">Beautiful inside and out </div>
+                </div>
+                <div class="slide">
+                    <img src="img/i5.jpg" alt="Maggie Photo 5" />
+                    <div class="slide-caption">Fifty never looked so golden </div>
+                </div>
+                <button class="slideshow-btn prev" id="prevSlide" aria-label="Previous slide">
+                    <span class="material-icons">chevron_left</span>
+                </button>
+                <button class="slideshow-btn next" id="nextSlide" aria-label="Next slide">
+                    <span class="material-icons">chevron_right</span>
+                </button>
+            </div>
+            <div class="dots-container" id="dotsContainer"></div>
+        </div>
+    </div>
+
+    <!-- Photo Modal -->
+    <div class="modal-overlay" id="photoModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal">×</button>
+            <img src="" id="modalPhotoImg" class="modal-photo" alt="Guest photo" />
+            <div class="modal-nickname" id="modalNickname"></div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+            function getSubmissions() {
+                try { return JSON.parse(localStorage.getItem('rsvpSubmissions') || '[]'); } catch(e) { return []; }
+            }
+
+            function renderCollage() {
+                const grid = document.getElementById('collageGrid');
+                const submissions = getSubmissions();
+                const withPhotos = submissions.filter(sub => sub.photo);
+                grid.innerHTML = '';
+
+                if (withPhotos.length === 0) {
+                    grid.innerHTML = '<p class="empty-message">No photos yet. Submit your RSVP on the invitation page to add your photo!</p>';
+                    return;
+                }
+
+                withPhotos.forEach((sub, idx) => {
+                    const item = document.createElement('div');
+                    item.className = 'collage-item';
+                    if (idx % 5 === 0) item.classList.add('large');
+                    else if (idx % 3 === 0) item.classList.add('medium');
+                    else item.classList.add('small');
+
+                    item.innerHTML = `<img src="${sub.photo}" alt="${sub.nickname}" /><span class="nickname">${sub.nickname}</span>`;
+                    item.addEventListener('click', function() {
+                        document.getElementById('modalPhotoImg').src = sub.photo;
+                        document.getElementById('modalNickname').textContent = sub.nickname || '';
+                        document.getElementById('photoModal').classList.add('active');
+                    });
+                    grid.appendChild(item);
+                });
+            }
+
+            // Modal close
+            document.getElementById('closeModal').addEventListener('click', function() {
+                document.getElementById('photoModal').classList.remove('active');
+            });
+            document.getElementById('photoModal').addEventListener('click', function(e) {
+                if (e.target === this) this.classList.remove('active');
+            });
+
+            // Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    document.getElementById('photoModal').classList.remove('active');
+                }
+            });
+
+            // ===== SLIDESHOW =====
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prevSlide');
+            const nextBtn = document.getElementById('nextSlide');
+            const dotsContainer = document.getElementById('dotsContainer');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+            let autoPlayInterval;
+
+            function createDots() {
+                dotsContainer.innerHTML = '';
+                for (let i = 0; i < totalSlides; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot' + (i === 0 ? ' active' : '');
+                    dot.dataset.index = i;
+                    dot.addEventListener('click', () => goToSlide(i));
+                    dotsContainer.appendChild(dot);
+                }
+            }
+
+            function goToSlide(index) {
+                if (index < 0) index = totalSlides - 1;
+                if (index >= totalSlides) index = 0;
+                currentSlide = index;
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === currentSlide);
+                });
+                const dots = dotsContainer.querySelectorAll('.dot');
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentSlide);
+                });
+            }
+
+            function nextSlideFn() { goToSlide(currentSlide + 1); }
+            function prevSlideFn() { goToSlide(currentSlide - 1); }
+
+            function startAutoPlay() {
+                autoPlayInterval = setInterval(nextSlideFn, 4000);
+            }
+            function stopAutoPlay() {
+                clearInterval(autoPlayInterval);
+            }
+
+            nextBtn.addEventListener('click', () => {
+                stopAutoPlay(); nextSlideFn(); startAutoPlay();
+            });
+            prevBtn.addEventListener('click', () => {
+                stopAutoPlay(); prevSlideFn(); startAutoPlay();
+            });
+
+            const slideshowContainer = document.getElementById('slideshow');
+            slideshowContainer.addEventListener('mouseenter', stopAutoPlay);
+            slideshowContainer.addEventListener('mouseleave', startAutoPlay);
+
+            let touchStartX = 0;
+            slideshowContainer.addEventListener('touchstart', function(e) {
+                touchStartX = e.changedTouches[0].screenX;
+            }, { passive: true });
+            slideshowContainer.addEventListener('touchend', function(e) {
+                const touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    stopAutoPlay();
+                    if (diff > 0) nextSlideFn();
+                    else prevSlideFn();
+                    startAutoPlay();
+                }
+            }, { passive: true });
+
+            createDots();
+            startAutoPlay();
+            renderCollage();
+        })();
+    </script>
+</body>
+</html>
