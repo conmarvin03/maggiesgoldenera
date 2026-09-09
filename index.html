@@ -676,14 +676,12 @@
     <!-- HERO -->
     <section class="hero" id="hero">
         <div class="hero-media">
-  <video class="landscape-video" muted loop playsinline autoplay preload="auto" poster="img/hero-poster.jpg">
-    <source src="audio/bg.webm" type="video/webm" />
-    <source src="audio/bg.mp4" type="video/mp4" />
-</video>
-<video class="portrait-video" muted loop playsinline autoplay preload="auto" poster="img/hero-poster-mobile.jpg">
-    <source src="audio/bgmb.webm" type="video/webm" />
-    <source src="audio/bgmb.mp4" type="video/mp4" />
-</video> 
+            <video class="landscape-video" muted loop playsinline autoplay>
+                <source src="audio/bg.mp4" type="video/mp4" />
+            </video>
+            <video class="portrait-video" muted loop playsinline autoplay>
+                <source src="audio/bgmb.mp4" type="video/mp4" />
+            </video>
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -1071,45 +1069,23 @@
             renderCollage();
         })();
 
-// ===== LOADING SCREEN (wait for hero video) =====
-function waitForVideo() {
-    const activeVideo = getActiveVideo();
-    if (!activeVideo) {
-        hideLoadingAndShowPage();
-        return;
-    }
+// ===== LOADING SCREEN + FADE-IN =====
+const loadingScreen = document.getElementById('loadingScreen');
+document.body.style.overflow = 'hidden';
 
-    // If video already has data (readyState >= 2 means can play current frame)
-    if (activeVideo.readyState >= 2) {
-        hideLoadingAndShowPage();
-        return;
-    }
-
-    const onReady = () => {
-        activeVideo.removeEventListener('loadeddata', onReady);
-        activeVideo.removeEventListener('canplay', onReady);
-        activeVideo.removeEventListener('canplaythrough', onReady);
-        activeVideo.removeEventListener('error', onError);
-        hideLoadingAndShowPage();
-    };
-
-    const onError = () => {
-        activeVideo.removeEventListener('loadeddata', onReady);
-        activeVideo.removeEventListener('canplay', onReady);
-        activeVideo.removeEventListener('canplaythrough', onReady);
-        activeVideo.removeEventListener('error', onError);
-        hideLoadingAndShowPage();
-    };
-
-    // Listen to 'loadeddata' - fires when first frame is available
-    activeVideo.addEventListener('loadeddata', onReady);
-    activeVideo.addEventListener('canplay', onReady);
-    activeVideo.addEventListener('canplaythrough', onReady);
-    activeVideo.addEventListener('error', onError);
-
-    // Fallback: hide after 3 seconds
-    setTimeout(hideLoadingAndShowPage, 3000);
+function hideLoadingAndShowPage() {
+    loadingScreen.classList.add('hidden');
+    document.body.classList.add('page-loaded');
+    document.body.style.overflow = '';
 }
+
+// Hide when page fully loaded
+window.addEventListener('load', () => {
+    setTimeout(hideLoadingAndShowPage, 600);
+});
+
+// Fallback: hide after 3 seconds if load doesn't fire
+setTimeout(hideLoadingAndShowPage, 3000);
     </script>
 </body>
 </html>
