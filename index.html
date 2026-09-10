@@ -133,6 +133,132 @@ body{font-family:'Inter',sans-serif;background-color:var(--bg);color:var(--text)
 .node-photo:active{transform:scale(.98)}
 .node-photo img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;display:block;border-radius:2px}
 .polaroid-caption{font-family:'Special Elite',cursive;font-size:1rem;color:var(--text);text-align:center;margin-top:.8rem;letter-spacing:.02em;line-height:1.3}
+/* ===== MASTER OF CEREMONY ===== */
+.mc-wrapper {
+    max-width: 700px;
+    margin: 2rem auto 0;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity .8s ease, transform .8s ease;
+}
+.mc-wrapper.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.mc-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-gold);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    transition: all .4s ease;
+}
+.mc-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.mc-card::after {
+    content: '';
+    position: absolute;
+    top: -50%; right: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(201,168,76,.06) 0%, transparent 70%);
+    pointer-events: none;
+    transition: transform .6s ease;
+}
+.mc-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--gold);
+    box-shadow: 0 20px 45px rgba(201,168,76,.18);
+}
+.mc-card:hover::after {
+    transform: scale(1.2);
+}
+.mc-photo-frame {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 1.5rem;
+    border-radius: 50%;
+    padding: 6px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark), var(--gold));
+    box-shadow: 0 15px 35px rgba(201,168,76,.3);
+    transition: transform .4s ease, box-shadow .4s ease;
+    overflow: hidden;
+    z-index: 1;
+}
+.mc-card:hover .mc-photo-frame {
+    transform: scale(1.05) rotate(-2deg);
+    box-shadow: 0 20px 45px rgba(201,168,76,.45);
+}
+.mc-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    background: var(--bg-alt);
+}
+.mc-shine {
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,.4), transparent);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: mcShine 4s ease-in-out infinite;
+}
+@keyframes mcShine {
+    0%   { left: -100%; }
+    50%  { left: 150%; }
+    100% { left: 150%; }
+}
+.mc-info {
+    position: relative;
+    z-index: 1;
+}
+.mc-star {
+    font-size: 1.5rem;
+    color: var(--gold);
+    opacity: .6;
+    display: block;
+    font-family: 'Special Elite', cursive;
+    margin-bottom: .3rem;
+}
+.mc-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--text);
+    letter-spacing: .04em;
+    margin-bottom: .5rem;
+}
+.mc-line {
+    width: 60px;
+    height: 1.5px;
+    background: var(--gold);
+    margin: .6rem auto 1rem;
+}
+.mc-role {
+    font-family: 'Special Elite', cursive;
+    font-size: 1rem;
+    color: var(--gold);
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    margin-bottom: .4rem;
+}
+.mc-tagline {
+    font-size: .95rem;
+    color: var(--text-muted);
+    font-style: italic;
+    max-width: 400px;
+    margin: 0 auto;
+}
 /* ===== TRIBUTE LIST SECTION ===== */
 .tribute-inner{max-width:1300px;margin:0 auto;padding:0 2rem}
 .tribute-intro{text-align:center;color:var(--text-muted);font-style:italic;font-family:'Special Elite',cursive;margin-top:1rem;font-size:1rem}
@@ -182,84 +308,57 @@ body{font-family:'Inter',sans-serif;background-color:var(--bg);color:var(--text)
 .tribute-grid .tribute-card:nth-child(6) ol li:hover{
     padding-left:1.9rem;
 }
-/* Desktop: 4-column grid, cards 5 & 6 span 2 cols each (double width) */
 @media (min-width: 992px){
     .tribute-grid{grid-template-columns:repeat(4,1fr)}
     .tribute-grid .tribute-card:nth-child(5),
     .tribute-grid .tribute-card:nth-child(6){grid-column:span 2}
 }
-/* Tablet: 2-column grid, cards 5 & 6 span 2 cols (full width) */
 @media (min-width: 769px) and (max-width: 991px){
     .tribute-grid{grid-template-columns:repeat(2,1fr)}
     .tribute-grid .tribute-card:nth-child(5),
     .tribute-grid .tribute-card:nth-child(6){grid-column:span 2}
 }
-/* ===== DRESS CODE (FLIP CARD) ===== */
+/* ===== DRESS CODE (VIDEO) ===== */
 .dresscode-wrapper{max-width:1100px;margin:2rem auto 0;text-align:center}
 .dresscode-header{margin-bottom:2.5rem}
 .dresscode-theme{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.2rem);color:var(--gold);letter-spacing:.08em;margin-bottom:.6rem;font-style:italic}
 .dresscode-date{font-family:'Special Elite',cursive;font-size:1rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted)}
 .dresscode-date::before,.dresscode-date::after{content:'✦';color:var(--gold);margin:0 .8rem;opacity:.6}
-.flip-card-wrapper{
-    max-width:480px;
-    margin:2rem auto 0;
-    perspective:2000px;
-    cursor:pointer;
-    opacity:0;
-    transform:translateY(40px);
-    transition:opacity .8s ease,transform .8s ease;
+
+/* ===== DRESS CODE VIDEO ===== */
+.dresscode-video-wrapper {
+    max-width: 480px;
+    margin: 2rem auto 0;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity .8s ease, transform .8s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.flip-card-wrapper.visible{opacity:1;transform:translateY(0)}
-.flip-card{width:100%}
-.flip-inner{
-    display:grid;
-    grid-template-areas:"card";
-    transition:transform 0.9s cubic-bezier(.4,0,.2,1);
-    transform-style:preserve-3d;
+.dresscode-video-wrapper.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
-.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
-.flip-face{
-    grid-area:card;
-    backface-visibility:hidden;
-    -webkit-backface-visibility:hidden;
-    background:var(--card-bg);
-    border:1px solid var(--border-gold);
-    border-radius:16px;
-    padding:2.5rem 2rem;
-    text-align:center;
-    box-shadow:var(--shadow);
-    transition:box-shadow .4s ease,border-color .4s ease;
+.dresscode-video {
+    width: 100%;
+    max-width: 480px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 16px;
+    border: 2px solid var(--border-gold);
+    box-shadow: 0 15px 35px rgba(201,168,76,.18);
+    background: var(--bg-alt);
+    object-fit: cover;
+    transition: transform .4s ease, box-shadow .4s ease;
 }
-.flip-card-wrapper:hover .flip-face{
-    border-color:var(--gold);
-    box-shadow:0 20px 45px rgba(201,168,76,.18);
+.dresscode-video:hover {
+    transform: scale(1.02);
+    box-shadow: 0 20px 45px rgba(201,168,76,.3);
 }
-.flip-back{transform:rotateY(180deg)}
-.flip-face .dc-icon{font-size:2rem;color:var(--gold);margin-bottom:.5rem;display:block;font-family:'Special Elite',cursive;opacity:.6}
-.flip-face h3{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--text);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
-.flip-face .dc-line{width:50px;height:1.5px;background:var(--gold);margin:.6rem auto 1.5rem}
-.flip-face .dc-ref{width:100%;max-width:320px;aspect-ratio:3/4;object-fit:cover;border-radius:12px;border:2px solid var(--border-gold);margin:0 auto 1.5rem;display:block;box-shadow:0 8px 25px rgba(0,0,0,.1);background:var(--bg-alt)}
-.flip-face p{font-size:.95rem;color:var(--text-soft);line-height:1.8;max-width:400px;margin:0 auto}
-.flip-face p+p{margin-top:.8rem;font-style:italic;color:var(--text-muted)}
-.flip-hint{
-    margin-top:1.5rem;
-    display:inline-flex;
-    align-items:center;
-    gap:.4rem;
-    font-family:'Special Elite',cursive;
-    font-size:.8rem;
-    color:var(--gold);
-    letter-spacing:.05em;
-    padding:.5rem 1rem;
-    border:1px dashed var(--border-gold);
-    border-radius:20px;
-    animation:pulseHint 2s infinite;
-}
-.flip-hint .material-icons{font-size:1rem}
-@keyframes pulseHint{
-    0%,100%{opacity:.7;transform:translateY(0)}
-    50%{opacity:1;transform:translateY(-2px)}
-}
+
 /* ===== Invitation GIFs ===== */
 .inv-gif{width:100%;max-width:700px;height:auto;display:block;margin:2rem auto;border-radius:12px;border:2px solid var(--gold)}
 @media (min-width:769px){.inv-gif{margin-left:105px;margin-right:auto}}
@@ -288,10 +387,13 @@ body{font-family:'Inter',sans-serif;background-color:var(--bg);color:var(--text)
 .tribute-inner{padding:0 1rem}
 .dresscode-theme{font-size:1.3rem}
 .dresscode-date{font-size:.85rem}
-.flip-card-wrapper{max-width:100%}
-.flip-face{padding:2rem 1.5rem}
-.flip-face h3{font-size:1.35rem}
-.flip-face .dc-ref{max-width:260px}
+.dresscode-video-wrapper{max-width:100%;padding:0 1rem;margin:1.5rem auto 0}
+.dresscode-video{max-width:100%;border-radius:12px}
+.mc-card{padding:2rem 1.5rem}
+.mc-photo-frame{width:180px;height:180px}
+.mc-name{font-size:1.5rem}
+.mc-role{font-size:.9rem}
+.mc-tagline{font-size:.85rem}
 }
 @media (max-width:640px){
 .collage-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:110px;gap:6px;padding:6px;max-height:450px}
@@ -317,6 +419,10 @@ body{font-family:'Inter',sans-serif;background-color:var(--bg);color:var(--text)
     height:1.05rem;
     font-size:.6rem;
 }
+.mc-photo-frame{width:150px;height:150px;padding:5px}
+.mc-name{font-size:1.3rem}
+.dresscode-video-wrapper{padding:0 0.5rem}
+.dresscode-video{border-radius:10px;border-width:1.5px}
 }
 #loadingScreen{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;transition:opacity .6s}
 #loadingScreen.hidden{opacity:0;pointer-events:none}
@@ -344,6 +450,7 @@ body.page-loaded{opacity:1}
     <ul class="nav-links" id="navLinks">
       <li><a href="#message">Message</a></li>
       <li><a href="#program">Program</a></li>
+      <li><a href="#mc-section">MC</a></li>
       <li><a href="#details">Details</a></li>
       <li><a href="#rsvp">RSVP</a></li>
       <li><a href="#golden-memories">Golden Memories</a></li>
@@ -359,6 +466,7 @@ body.page-loaded{opacity:1}
   <ul class="mobile-links">
     <li><a href="#message">Message</a></li>
     <li><a href="#program">Program</a></li>
+    <li><a href="#mc-section">MC</a></li>
     <li><a href="#details">Details</a></li>
     <li><a href="#rsvp">RSVP</a></li>
     <li><a href="#golden-memories">Golden Memories</a></li>
@@ -423,34 +531,13 @@ body.page-loaded{opacity:1}
     <div class="section-divider"></div>
 
     <div class="dresscode-wrapper">
-      <div class="dresscode-header">
-        <p class="dresscode-theme">Black or Navy Blue</p>
-        <p class="dresscode-date">18 October, 2026</p>
-      </div>
+      
 
-      <div class="flip-card-wrapper" id="dressFlipWrapper">
-        <div class="flip-card" id="dressFlip">
-          <div class="flip-inner">
-            <div class="flip-face flip-front">
-              <span class="dc-icon">✦</span>
-              <h3>Ladies</h3>
-              <div class="dc-line"></div>
-              <img src="img/front.jpg" class="dc-ref" loading="lazy" decoding="async" alt="Ladies dress code reference" />
-              <p>Cocktail dresses, dressy separates, or polished midi dresses are perfect.</p>
-              <p>Think elegant, festive, and effortlessly put-together.</p>
-              <div class="flip-hint"><span class="material-icons">touch_app</span> Tap to see Gents</div>
-            </div>
-            <div class="flip-face flip-back">
-              <span class="dc-icon">✦</span>
-              <h3>Gents</h3>
-              <div class="dc-line"></div>
-              <img src="img/back.jpg" class="dc-ref" loading="lazy" decoding="async" alt="Gents dress code reference" />
-              <p>Tailored trousers, a button-down shirt, and loafers are ideal.</p>
-              <p>Semi-formal black long-sleeve polo with tailored trousers. A blazer is optional for a sharper look.</p>
-              <div class="flip-hint"><span class="material-icons">touch_app</span> Tap to see Ladies</div>
-            </div>
-          </div>
-        </div>
+      <div class="dresscode-video-wrapper">
+        <video class="dresscode-video" autoplay loop muted playsinline preload="metadata">
+          <source src="img/asd.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
     </div>
   </div>
@@ -612,13 +699,13 @@ body.page-loaded{opacity:1}
       <p class="timeline-subheading">A journey through the years</p>
       <div class="history-timeline">
         <div class="timeline-node" data-photo="img/i1.jpg" data-caption="Baby · 19XX">
-          <div class="node-year">19XX</div><br>
+          <div class="node-year">1976</div><br>
           <div class="node-plus">+</div>
           <div class="node-title">&nbsp;</div>
           <div class="node-photo"><img src="img/i1.jpg" loading="lazy" decoding="async" alt="Baby Maggie" /><div class="polaroid-caption" style="color:#000">Baby Maggie</div></div>
         </div>
         <div class="timeline-node" data-photo="img/i2.jpg" data-caption="Teenager · 20XX">
-          <div class="node-year">20XX</div>
+          <div class="node-year">1976</div>
           <div class="node-plus">+</div>
           <div class="node-title">&nbsp;</div>
           <div class="node-photo"><img src="img/i2.jpg" loading="lazy" decoding="async" alt="Teenage Maggie" /><div class="polaroid-caption" style="color:#000">Youthful Spark</div></div>
@@ -640,6 +727,31 @@ body.page-loaded{opacity:1}
           <div class="node-plus">+</div>
           <div class="node-title">&nbsp;</div>
           <div class="node-photo"><img src="img/i5.jpg" loading="lazy" decoding="async" alt="Present Maggie" /><div class="polaroid-caption" style="color:#000">Golden &amp; Radiant</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MASTER OF CEREMONY ===== -->
+<section class="section section-alt" id="mc-section">
+  <div class="section-inner">
+    <p class="section-label">Hosting the Evening</p>
+    <h2 class="section-title">Master of <span class="gold-text">Ceremony</span></h2>
+    <div class="section-divider"></div>
+
+    <div class="mc-wrapper">
+      <div class="mc-card">
+        <div class="mc-photo-frame">
+          <img src="img/a.jpg" class="mc-photo" loading="lazy" decoding="async" alt="Mervin Servano - Master of Ceremony" />
+          <div class="mc-shine"></div>
+        </div>
+        <div class="mc-info">
+          <span class="mc-star">✦</span>
+          <h3 class="mc-name">Mervin Servano</h3>
+          <div class="mc-line"></div>
+          <p class="mc-role">Master of Ceremony</p>
+          <p class="mc-tagline">Guiding us through a night of golden memories</p>
         </div>
       </div>
     </div>
@@ -825,26 +937,11 @@ document.querySelectorAll('.timeline-node').forEach(node=>{
   });
 });
 
-// ===== DRESS CODE FLIP CARD =====
-const dressFlipWrapper=document.getElementById('dressFlipWrapper');
-const dressFlip=document.getElementById('dressFlip');
-if(dressFlipWrapper){
-  dressFlipWrapper.addEventListener('click',()=>{
-    dressFlip.classList.toggle('flipped');
-  });
-  dressFlipWrapper.addEventListener('keydown',(e)=>{
-    if(e.key==='Enter'||e.key===' '){e.preventDefault();dressFlip.classList.toggle('flipped')}
-  });
-  dressFlipWrapper.setAttribute('tabindex','0');
-  dressFlipWrapper.setAttribute('role','button');
-  dressFlipWrapper.setAttribute('aria-label','Toggle dress code between Ladies and Gents');
-}
-
 // ===== SCROLL ANIMATION =====
 const observer=new IntersectionObserver(entries=>{
   entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')});
 },{threshold:.15});
-document.querySelectorAll('.timeline-item, .tribute-card, .flip-card-wrapper').forEach(el=>observer.observe(el));
+document.querySelectorAll('.timeline-item, .tribute-card, .mc-wrapper, .dresscode-video-wrapper').forEach(el=>observer.observe(el));
 
 // ===== INIT COLLAGE =====
 function initCollage(){
