@@ -175,6 +175,24 @@ body{font-family:'Inter',sans-serif;background-color:var(--bg);color:var(--text)
 .loading-text{font-family:'Special Elite',cursive;font-size:1rem;color:var(--text-muted);letter-spacing:.05em}
 body{opacity:0;transition:opacity .8s}
 body.page-loaded{opacity:1}
+/* ===== Invitation GIFs (desktop only shift) ===== */
+.inv-gif {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    display: block;
+    margin: 2rem auto;
+    border-radius: 12px;
+    border: 2px solid var(--gold);
+}
+
+/* Only apply margin-left on tablet/desktop, NOT on mobile */
+@media (min-width: 769px) {
+    .inv-gif {
+        margin-left: 105px;
+        margin-right: auto;
+    }
+}
 </style>
 </head>
 <body class="night-mode">
@@ -269,17 +287,13 @@ body.page-loaded{opacity:1}
     <p class="section-label">The Essentials</p>
     <h2 class="section-title">Birthday <span class="gold-text">Details</span></h2>
     <div class="section-divider"></div>
-    <img src="img/inv2.gif" loading="lazy" decoding="async" style="width:100%;max-width:700px;height:auto;margin:2rem auto;border-radius:12px;border:2px solid var(--gold)" alt="Invitation" />
-  </div>
-</section>
+ <img src="img/inv2.gif"  class="inv-gif" loading="lazy" decoding="async" style="width:100%;max-width:700px;height:auto;border-radius:12px;border:2px solid var(--gold)" alt="Invitation" /></section>
 
 <section class="section" id="tribute-video">
   <div class="section-inner">
     <p class="section-label">A Special Tribute</p>
     <h2 class="section-title">A Golden <span class="gold-text">Tribute</span></h2>
-    <div class="section-divider"></div>
-    <img src="img/inv22.gif" loading="lazy" decoding="async" style="width:100%;max-width:700px;height:auto;margin:2rem auto;border-radius:12px;border:2px solid var(--gold)" alt="Tribute" />
-  </div>
+    <div class="section-divider"></div><img src="img/inv22.gif" loading="lazy" decoding="async" class="inv-gif" alt="Invitation" /> </div>
 </section>
 
 <section class="section" id="rsvp">
