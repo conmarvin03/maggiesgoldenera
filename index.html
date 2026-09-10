@@ -133,6 +133,136 @@ body{font-family:'Inter',sans-serif;background-color:var(--bg);color:var(--text)
 .node-photo:active{transform:scale(.98)}
 .node-photo img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;display:block;border-radius:2px}
 .polaroid-caption{font-family:'Special Elite',cursive;font-size:1rem;color:var(--text);text-align:center;margin-top:.8rem;letter-spacing:.02em;line-height:1.3}
+/* ===== TRIBUTE LIST SECTION ===== */
+.tribute-inner{max-width:1300px;margin:0 auto;padding:0 2rem}
+.tribute-intro{text-align:center;color:var(--text-muted);font-style:italic;font-family:'Special Elite',cursive;margin-top:1rem;font-size:1rem}
+.tribute-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-top:3rem}
+.tribute-card{background:var(--card-bg);border:1px solid var(--border-gold);border-radius:12px;padding:2rem 1.8rem;position:relative;overflow:hidden;transition:all .4s ease;box-shadow:var(--shadow);opacity:0;transform:translateY(40px)}
+.tribute-card.visible{opacity:1;transform:translateY(0)}
+.tribute-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.tribute-card::after{content:'';position:absolute;top:-50%;right:-50%;width:200%;height:200%;background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 70%);pointer-events:none;transition:transform .6s ease}
+.tribute-card:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:0 15px 40px rgba(201,168,76,.18)}
+.tribute-card:hover::after{transform:scale(1.2)}
+.tribute-card h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);text-align:center;margin-bottom:.5rem;letter-spacing:.05em;position:relative;z-index:1}
+.tribute-card .tribute-divider{width:40px;height:1px;background:var(--gold);margin:.8rem auto 1.2rem;opacity:.5;position:relative;z-index:1}
+.tribute-card ol{list-style:none;counter-reset:tribute-counter;position:relative;z-index:1}
+.tribute-card ol li{counter-increment:tribute-counter;padding:.4rem 0 .4rem 2rem;position:relative;font-size:.92rem;color:var(--text);border-bottom:1px dashed rgba(201,168,76,.12);transition:all .25s ease}
+.tribute-card ol li:last-child{border-bottom:none}
+.tribute-card ol li::before{content:counter(tribute-counter);position:absolute;left:0;top:.45rem;width:1.35rem;height:1.35rem;background:rgba(201,168,76,.12);color:var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Special Elite',cursive;font-size:.7rem;font-weight:700;transition:all .3s ease}
+.tribute-card ol li:hover{padding-left:2.3rem;color:var(--gold)}
+.tribute-card ol li:hover::before{background:var(--gold);color:#fff;transform:scale(1.15)}
+.tribute-card:nth-child(1){transition-delay:.05s}
+.tribute-card:nth-child(2){transition-delay:.1s}
+.tribute-card:nth-child(3){transition-delay:.15s}
+.tribute-card:nth-child(4){transition-delay:.2s}
+.tribute-card:nth-child(5){transition-delay:.25s}
+.tribute-card:nth-child(6){transition-delay:.3s}
+/* ===== DOUBLE-WIDTH CARDS: 12 Toast (5th) & 15 Roses (6th) ===== */
+.tribute-grid .tribute-card:nth-child(5) ol,
+.tribute-grid .tribute-card:nth-child(6) ol{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0 .8rem;
+    column-gap:.8rem;
+}
+.tribute-grid .tribute-card:nth-child(5) ol li,
+.tribute-grid .tribute-card:nth-child(6) ol li{
+    padding-left:1.7rem;
+    font-size:.9rem;
+    border-bottom:1px dashed rgba(201,168,76,.12);
+}
+.tribute-grid .tribute-card:nth-child(5) ol li::before,
+.tribute-grid .tribute-card:nth-child(6) ol li::before{
+    width:1.2rem;
+    height:1.2rem;
+    font-size:.65rem;
+    top:.5rem;
+}
+.tribute-grid .tribute-card:nth-child(5) ol li:hover,
+.tribute-grid .tribute-card:nth-child(6) ol li:hover{
+    padding-left:1.9rem;
+}
+/* Desktop: 4-column grid, cards 5 & 6 span 2 cols each (double width) */
+@media (min-width: 992px){
+    .tribute-grid{grid-template-columns:repeat(4,1fr)}
+    .tribute-grid .tribute-card:nth-child(5),
+    .tribute-grid .tribute-card:nth-child(6){grid-column:span 2}
+}
+/* Tablet: 2-column grid, cards 5 & 6 span 2 cols (full width) */
+@media (min-width: 769px) and (max-width: 991px){
+    .tribute-grid{grid-template-columns:repeat(2,1fr)}
+    .tribute-grid .tribute-card:nth-child(5),
+    .tribute-grid .tribute-card:nth-child(6){grid-column:span 2}
+}
+/* ===== DRESS CODE (FLIP CARD) ===== */
+.dresscode-wrapper{max-width:1100px;margin:2rem auto 0;text-align:center}
+.dresscode-header{margin-bottom:2.5rem}
+.dresscode-theme{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.2rem);color:var(--gold);letter-spacing:.08em;margin-bottom:.6rem;font-style:italic}
+.dresscode-date{font-family:'Special Elite',cursive;font-size:1rem;letter-spacing:.2em;text-transform:uppercase;color:var(--text-muted)}
+.dresscode-date::before,.dresscode-date::after{content:'✦';color:var(--gold);margin:0 .8rem;opacity:.6}
+.flip-card-wrapper{
+    max-width:480px;
+    margin:2rem auto 0;
+    perspective:2000px;
+    cursor:pointer;
+    opacity:0;
+    transform:translateY(40px);
+    transition:opacity .8s ease,transform .8s ease;
+}
+.flip-card-wrapper.visible{opacity:1;transform:translateY(0)}
+.flip-card{width:100%}
+.flip-inner{
+    display:grid;
+    grid-template-areas:"card";
+    transition:transform 0.9s cubic-bezier(.4,0,.2,1);
+    transform-style:preserve-3d;
+}
+.flip-card.flipped .flip-inner{transform:rotateY(180deg)}
+.flip-face{
+    grid-area:card;
+    backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
+    background:var(--card-bg);
+    border:1px solid var(--border-gold);
+    border-radius:16px;
+    padding:2.5rem 2rem;
+    text-align:center;
+    box-shadow:var(--shadow);
+    transition:box-shadow .4s ease,border-color .4s ease;
+}
+.flip-card-wrapper:hover .flip-face{
+    border-color:var(--gold);
+    box-shadow:0 20px 45px rgba(201,168,76,.18);
+}
+.flip-back{transform:rotateY(180deg)}
+.flip-face .dc-icon{font-size:2rem;color:var(--gold);margin-bottom:.5rem;display:block;font-family:'Special Elite',cursive;opacity:.6}
+.flip-face h3{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--text);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.5rem}
+.flip-face .dc-line{width:50px;height:1.5px;background:var(--gold);margin:.6rem auto 1.5rem}
+.flip-face .dc-ref{width:100%;max-width:320px;aspect-ratio:3/4;object-fit:cover;border-radius:12px;border:2px solid var(--border-gold);margin:0 auto 1.5rem;display:block;box-shadow:0 8px 25px rgba(0,0,0,.1);background:var(--bg-alt)}
+.flip-face p{font-size:.95rem;color:var(--text-soft);line-height:1.8;max-width:400px;margin:0 auto}
+.flip-face p+p{margin-top:.8rem;font-style:italic;color:var(--text-muted)}
+.flip-hint{
+    margin-top:1.5rem;
+    display:inline-flex;
+    align-items:center;
+    gap:.4rem;
+    font-family:'Special Elite',cursive;
+    font-size:.8rem;
+    color:var(--gold);
+    letter-spacing:.05em;
+    padding:.5rem 1rem;
+    border:1px dashed var(--border-gold);
+    border-radius:20px;
+    animation:pulseHint 2s infinite;
+}
+.flip-hint .material-icons{font-size:1rem}
+@keyframes pulseHint{
+    0%,100%{opacity:.7;transform:translateY(0)}
+    50%{opacity:1;transform:translateY(-2px)}
+}
+/* ===== Invitation GIFs ===== */
+.inv-gif{width:100%;max-width:700px;height:auto;display:block;margin:2rem auto;border-radius:12px;border:2px solid var(--gold)}
+@media (min-width:769px){.inv-gif{margin-left:105px;margin-right:auto}}
 @media (max-width:768px){
 .nav-links{display:none}.hamburger{display:flex}.nav-logo{font-size:1.4rem}
 .timeline::before{left:20px}
@@ -151,6 +281,17 @@ body{font-family:'Inter',sans-serif;background-color:var(--bg);color:var(--text)
 .node-photo{max-width:130px;margin-top:0;flex-shrink:0;padding:6px 6px 20px}
 .polaroid-caption{font-size:.7rem;margin-top:.5rem}
 .node-photo{order:1;margin-right:.8rem}
+.tribute-grid{grid-template-columns:1fr;gap:1.2rem}
+.tribute-card{padding:1.6rem 1.3rem}
+.tribute-card h3{font-size:1.2rem}
+.tribute-card ol li{font-size:.88rem}
+.tribute-inner{padding:0 1rem}
+.dresscode-theme{font-size:1.3rem}
+.dresscode-date{font-size:.85rem}
+.flip-card-wrapper{max-width:100%}
+.flip-face{padding:2rem 1.5rem}
+.flip-face h3{font-size:1.35rem}
+.flip-face .dc-ref{max-width:260px}
 }
 @media (max-width:640px){
 .collage-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:110px;gap:6px;padding:6px;max-height:450px}
@@ -165,6 +306,17 @@ body{font-family:'Inter',sans-serif;background-color:var(--bg);color:var(--text)
 .polaroid-caption{font-size:.6rem}
 .node-year{font-size:1rem}
 .node-title{font-size:.8rem}
+.tribute-grid .tribute-card:nth-child(5) ol li,
+.tribute-grid .tribute-card:nth-child(6) ol li{
+    font-size:.78rem;
+    padding-left:1.5rem;
+}
+.tribute-grid .tribute-card:nth-child(5) ol li::before,
+.tribute-grid .tribute-card:nth-child(6) ol li::before{
+    width:1.05rem;
+    height:1.05rem;
+    font-size:.6rem;
+}
 }
 #loadingScreen{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--bg);z-index:9999;display:flex;align-items:center;justify-content:center;transition:opacity .6s}
 #loadingScreen.hidden{opacity:0;pointer-events:none}
@@ -175,24 +327,6 @@ body{font-family:'Inter',sans-serif;background-color:var(--bg);color:var(--text)
 .loading-text{font-family:'Special Elite',cursive;font-size:1rem;color:var(--text-muted);letter-spacing:.05em}
 body{opacity:0;transition:opacity .8s}
 body.page-loaded{opacity:1}
-/* ===== Invitation GIFs (desktop only shift) ===== */
-.inv-gif {
-    width: 100%;
-    max-width: 700px;
-    height: auto;
-    display: block;
-    margin: 2rem auto;
-    border-radius: 12px;
-    border: 2px solid var(--gold);
-}
-
-/* Only apply margin-left on tablet/desktop, NOT on mobile */
-@media (min-width: 769px) {
-    .inv-gif {
-        margin-left: 105px;
-        margin-right: auto;
-    }
-}
 </style>
 </head>
 <body class="night-mode">
@@ -287,13 +421,159 @@ body.page-loaded{opacity:1}
     <p class="section-label">The Essentials</p>
     <h2 class="section-title">Birthday <span class="gold-text">Details</span></h2>
     <div class="section-divider"></div>
- <img src="img/inv2.gif"  class="inv-gif" loading="lazy" decoding="async" style="width:100%;max-width:700px;height:auto;border-radius:12px;border:2px solid var(--gold)" alt="Invitation" /></section>
+
+    <div class="dresscode-wrapper">
+      <div class="dresscode-header">
+        <p class="dresscode-theme">Black or Navy Blue</p>
+        <p class="dresscode-date">18 October, 2026</p>
+      </div>
+
+      <div class="flip-card-wrapper" id="dressFlipWrapper">
+        <div class="flip-card" id="dressFlip">
+          <div class="flip-inner">
+            <div class="flip-face flip-front">
+              <span class="dc-icon">✦</span>
+              <h3>Ladies</h3>
+              <div class="dc-line"></div>
+              <img src="img/front.jpg" class="dc-ref" loading="lazy" decoding="async" alt="Ladies dress code reference" />
+              <p>Cocktail dresses, dressy separates, or polished midi dresses are perfect.</p>
+              <p>Think elegant, festive, and effortlessly put-together.</p>
+              <div class="flip-hint"><span class="material-icons">touch_app</span> Tap to see Gents</div>
+            </div>
+            <div class="flip-face flip-back">
+              <span class="dc-icon">✦</span>
+              <h3>Gents</h3>
+              <div class="dc-line"></div>
+              <img src="img/back.jpg" class="dc-ref" loading="lazy" decoding="async" alt="Gents dress code reference" />
+              <p>Tailored trousers, a button-down shirt, and loafers are ideal.</p>
+              <p>Semi-formal black long-sleeve polo with tailored trousers. A blazer is optional for a sharper look.</p>
+              <div class="flip-hint"><span class="material-icons">touch_app</span> Tap to see Ladies</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="section" id="tribute-video">
-  <div class="section-inner">
+  <div class="tribute-inner">
     <p class="section-label">A Special Tribute</p>
     <h2 class="section-title">A Golden <span class="gold-text">Tribute</span></h2>
-    <div class="section-divider"></div><img src="img/inv22.gif" loading="lazy" decoding="async" class="inv-gif" alt="Invitation" /> </div>
+    <div class="section-divider"></div>
+    <p class="tribute-intro">Honoring those who light up Maggie's golden journey</p>
+
+    <div class="tribute-grid">
+      <div class="tribute-card">
+        <h3>10 Treasures</h3>
+        <div class="tribute-divider"></div>
+        <ol>
+          <li>Babes Bautista</li>
+          <li>Maureen Adonis</li>
+          <li>Jhai Pascual</li>
+          <li>Shaira Mae Grencio</li>
+          <li>Malou Llaguno</li>
+          <li>Joy Garcia + Avery</li>
+          <li>Elvie Corpuz</li>
+          <li>Nancy Palpal-Latoc</li>
+          <li>Jhona Robles</li>
+          <li>Nellie Sevilla</li>
+        </ol>
+      </div>
+
+      <div class="tribute-card">
+        <h3>10 Prayers</h3>
+        <div class="tribute-divider"></div>
+        <ol>
+          <li>AR Sister Trizia Agpaoa</li>
+          <li>Allen Failago + Cassian</li>
+          <li>Airen Pahuwayan</li>
+          <li>Liberty Cayuban</li>
+          <li>Ging Berdos</li>
+          <li>Maribel Alpha</li>
+          <li>Nilyn Lopez</li>
+          <li>Nenita Blanco</li>
+          <li>Ofelia Cabasal</li>
+          <li>Nieves Quimora Corpuz</li>
+        </ol>
+      </div>
+
+      <div class="tribute-card">
+        <h3>10 Golden Bills</h3>
+        <div class="tribute-divider"></div>
+        <ol>
+          <li>Ronette Alinas</li>
+          <li>Pearl Navarte</li>
+          <li>Edelen Cornejo</li>
+          <li>Sheila Adonis</li>
+          <li>Janes Filipino</li>
+          <li>Norie Ambata</li>
+          <li>Nem Dalusag</li>
+          <li>Niel Ambion</li>
+          <li>Bianca Lomugdang</li>
+          <li>Ana Navora</li>
+        </ol>
+      </div>
+
+      <div class="tribute-card">
+        <h3>10 Candles</h3>
+        <div class="tribute-divider"></div>
+        <ol>
+          <li>Myra Ricalde</li>
+          <li>Tess Miranda</li>
+          <li>Mads Manalo</li>
+          <li>MaryCon Corpuz</li>
+          <li>Janna Corpuz</li>
+          <li>Analee Lim Berba</li>
+          <li>Maureen Adonis</li>
+          <li>Ace Ricalde</li>
+          <li>Vanessa Grace</li>
+          <li>Bini Maloi</li>
+        </ol>
+      </div>
+
+      <div class="tribute-card">
+        <h3>12 Toast</h3>
+        <div class="tribute-divider"></div>
+        <ol>
+          <li>Archer Filipino</li>
+          <li>Albert Celen</li>
+          <li>Lito Ambion</li>
+          <li>Mario Villafuerte</li>
+          <li>Dong Ambata</li>
+          <li>Jayson Lumbreras</li>
+          <li>Marlon Ricalde</li>
+          <li>Miguel Alinas</li>
+          <li>Romeo Manalo</li>
+          <li>Elmer Miranda</li>
+          <li>Marlon Malaga</li>
+          <li>Jhon Marc Ricalde</li>
+        </ol>
+      </div>
+
+      <div class="tribute-card">
+        <h3>15 Roses</h3>
+        <div class="tribute-divider"></div>
+        <ol>
+          <li>James Sevilla</li>
+          <li>Anthony Llasus</li>
+          <li>Atorni Alpha</li>
+          <li>Virgilio Robles</li>
+          <li>Archie Phuwayan</li>
+          <li>Mario Corpuz</li>
+          <li>Carl Jon Miranda</li>
+          <li>Woodey Bahande</li>
+          <li>Timmy Ricalde</li>
+          <li>Henry Navora</li>
+          <li>Con Marvin Serrano</li>
+          <li>Charles Miranda</li>
+          <li>Kyle Manalo</li>
+          <li>Marc Ricalde</li>
+          <li>Marcelino Ricalde</li>
+        </ol>
+      </div>
+    </div>
+  </div>
 </section>
 
 <section class="section" id="rsvp">
@@ -409,7 +689,6 @@ function getClient(){
   return client;
 }
 
-// ===== FETCH =====
 async function fetchSubmissions(){
   const c=getClient();
   if(!c) return [];
@@ -418,7 +697,6 @@ async function fetchSubmissions(){
   return data;
 }
 
-// ===== SAVE =====
 async function saveSubmission(sub){
   const c=getClient();
   if(!c){console.warn("Supabase not ready");return}
@@ -469,7 +747,7 @@ document.querySelectorAll('.nav-links a[href^="#"]').forEach(a=>{
   });
 });
 
-// ===== RSVP FORM (unchanged) =====
+// ===== RSVP FORM =====
 const rsvpForm=document.getElementById('rsvpForm');
 rsvpForm.addEventListener('submit',async function(e){
   e.preventDefault();
@@ -547,13 +825,28 @@ document.querySelectorAll('.timeline-node').forEach(node=>{
   });
 });
 
-// ===== TIMELINE ANIM =====
+// ===== DRESS CODE FLIP CARD =====
+const dressFlipWrapper=document.getElementById('dressFlipWrapper');
+const dressFlip=document.getElementById('dressFlip');
+if(dressFlipWrapper){
+  dressFlipWrapper.addEventListener('click',()=>{
+    dressFlip.classList.toggle('flipped');
+  });
+  dressFlipWrapper.addEventListener('keydown',(e)=>{
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();dressFlip.classList.toggle('flipped')}
+  });
+  dressFlipWrapper.setAttribute('tabindex','0');
+  dressFlipWrapper.setAttribute('role','button');
+  dressFlipWrapper.setAttribute('aria-label','Toggle dress code between Ladies and Gents');
+}
+
+// ===== SCROLL ANIMATION =====
 const observer=new IntersectionObserver(entries=>{
   entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('visible')});
-},{threshold:.2});
-document.querySelectorAll('.timeline-item').forEach(el=>observer.observe(el));
+},{threshold:.15});
+document.querySelectorAll('.timeline-item, .tribute-card, .flip-card-wrapper').forEach(el=>observer.observe(el));
 
-// ===== INIT COLLAGE (wait for Supabase SDK) =====
+// ===== INIT COLLAGE =====
 function initCollage(){
   if(window.supabase) renderCollage();
   else setTimeout(initCollage,100);
@@ -586,7 +879,7 @@ function waitForVideoReady(){
   v.addEventListener('loadeddata',ready);
   v.addEventListener('canplay',ready);
   v.addEventListener('error',err);
-  setTimeout(hideLoadingAndShowPage,2500);
+  setTimeout(hideLoadingAndShowPage,300);
 }
 waitForVideoReady();
 </script>
